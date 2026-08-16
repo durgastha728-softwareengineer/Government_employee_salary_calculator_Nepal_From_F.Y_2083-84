@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ne">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>नेपाल सरकार कर्मचारी तलब क्याल्कुलेटर — आ.व. २०८३/८४</title>
+  <style>
+    :root{
+      --bg:#f4f7f8; --card:#ffffff; --text:#162026; --muted:#62727c;
+      --line:#dbe3e7; --accent:#0f6b50; --accent2:#eaf5f1;
+      --danger:#9d2b2b; --shadow:0 8px 24px rgba(20,40,50,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans Devanagari","Noto Sans",sans-serif;line-height:1.45}
+    .wrap{max-width:1050px;margin:0 auto;padding:18px}
+    .hero{background:linear-gradient(135deg,#0d654c,#198565);color:#fff;border-radius:18px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px}
+    .hero h1{font-size:clamp(22px,4vw,34px);margin:0 0 6px}
+    .hero p{margin:0;opacity:.92}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+    .card h2{font-size:19px;margin:0 0 14px}
+    .field{margin-bottom:13px}
+    label{display:block;font-weight:700;margin-bottom:6px}
+    .hint{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+    input,select{width:100%;padding:11px 12px;border:1px solid #bdc9cf;border-radius:10px;background:#fff;color:#162026;font-size:16px;outline:none}
+    input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(15,107,80,.12)}
+    .inline{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .summary{background:var(--accent2);border:1px solid #b8d9cd;border-radius:14px;padding:15px;margin-bottom:14px}
+    .net-label{font-weight:800;color:#284138}
+    .net{font-size:clamp(32px,7vw,48px);font-weight:900;color:var(--accent);letter-spacing:-1px}
+    .small{font-size:13px;color:var(--muted)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+    th:last-child,td:last-child{text-align:right}
+    th{font-size:12px;text-transform:uppercase;color:#5c6c74}
+    .minus{color:var(--danger)}
+    .plus{color:var(--accent)}
+    .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    button{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer;font-size:14px}
+    .primary{background:var(--accent);color:white}
+    .secondary{background:#e8eef1;color:#1c2c34}
+    details{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+    details summary{cursor:pointer;font-weight:800}
+    .note{font-size:12px;color:#5f6f77;background:#f7fafb;border:1px dashed #c8d3d8;border-radius:10px;padding:10px;margin-top:14px}
+    .full{grid-column:1/-1}
+    .badge{display:inline-block;background:rgba(255,255,255,.18);padding:4px 9px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:8px}
+    @media (max-width:760px){.grid{grid-template-columns:1fr}.inline{grid-template-columns:1fr}.wrap{padding:10px}.card{padding:14px}}
+    @media print{
+      body{background:#fff}.wrap{max-width:none;padding:0}.hero{box-shadow:none}.card{box-shadow:none;break-inside:avoid}
+      .buttons,.note details{display:none}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="badge">आ.व. २०८३/८४ • Web-based • Offline-ready</div>
+    <h1>नेपाल सरकार कर्मचारी मासिक तलब क्याल्कुलेटर</h1>
+    <p>हस्तलिखित विवरणमा उल्लेख भएका सञ्चयकोष, निवृत्तिभरण, बीमा, भत्ता, नागरिक लगानी कोष र कर कट्टीका आधारमा खातामा आउने रकम गणना गर्ने।</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>१) तलब तथा सेवा विवरण</h2>
+
+      <div class="field">
+        <label for="level">तह / स्तर</label>
+        <input id="level" type="text" placeholder="उदा. पाँचौं तह / अधिकृत छैटौं" />
+      </div>
+
+      <div class="field">
+        <label for="basic">मासिक तलबमान (रु.)</label>
+        <input id="basic" type="number" min="0" step="0.01" value="0" />
+        <span class="hint">अर्थ मन्त्रालय/सम्बन्धित आधिकारिक तलबमानबाट रकम राख्नुहोस्।</span>
+      </div>
+
+      <div class="field">
+        <label for="grade">ग्रेड रकम (रु.)</label>
+        <input id="grade" type="number" min="0" step="0.01" value="0" />
+      </div>
+
+      <div class="field">
+        <label for="pension">योगदानमूलक निवृत्तिभरण कोष लागू हुन्छ?</label>
+        <select id="pension">
+          <option value="yes">हुन्छ</option>
+          <option value="no" selected>हुँदैन</option>
+        </select>
+      </div>
+
+      <div class="inline">
+        <div class="field">
+          <label for="localAllowance">स्थानीय भत्ता (रु.)</label>
+          <input id="localAllowance" type="number" min="0" step="0.01" value="0" />
+        </div>
+        <div class="field">
+          <label for="otherAllowance">अन्य भत्ता (रु.)</label>
+          <input id="otherAllowance" type="number" min="0" step="0.01" value="0" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cit">नागरिक लगानी कोष (ना.ल.कोष) कट्टी (रु.)</label>
+        <input id="cit" type="number" min="0" step="0.01" value="0" />
+      </div>
+
+      <details>
+        <summary>कट्टी दर / नियम परिवर्तन गर्नुहोस्</summary>
+        <div class="inline" style="margin-top:12px">
+          <div class="field">
+            <label for="pfRate">कर्मचारी सञ्चयकोष कट्टी (%)</label>
+            <input id="pfRate" type="number" min="0" max="100" step="0.01" value="10" />
+          </div>
+          <div class="field">
+            <label for="pensionRate">निवृत्तिभरण कर्मचारी अंश (%)</label>
+            <input id="pensionRate" type="number" min="0" max="100" step="0.01" value="6" />
+          </div>
+          <div class="field">
+            <label for="insurance">मासिक बीमा कट्टी (रु.)</label>
+            <input id="insurance" type="number" min="0" step="0.01" value="400" />
+          </div>
+          <div class="field">
+            <label for="taxRate">कर कट्टी (%)</label>
+            <input id="taxRate" type="number" min="0" max="100" step="0.01" value="1" />
+          </div>
+          <div class="field">
+            <label for="employerPfRate">सरकारी/नियोक्ता सञ्चयकोष अंश (%)</label>
+            <input id="employerPfRate" type="number" min="0" max="100" step="0.01" value="10" />
+          </div>
+          <div class="field">
+            <label for="employerPensionRate">सरकारी/नियोक्ता निवृत्तिभरण अंश (%)</label>
+            <input id="employerPensionRate" type="number" min="0" max="100" step="0.01" value="6" />
+          </div>
+        </div>
+      </details>
+
+      <div class="buttons">
+        <button class="primary" id="copyBtn">सारांश Copy</button>
+        <button class="secondary" onclick="window.print()">Print / PDF</button>
+        <button class="secondary" id="resetBtn">Reset</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>२) खातामा आउने रकम</h2>
+      <div class="summary">
+        <div class="net-label">मासिक बैंक खातामा आउने अनुमानित रकम</div>
+        <div class="net" id="net">रु. 0.00</div>
+        <div class="small" id="levelText">तह/स्तर: —</div>
+      </div>
+
+      <table>
+        <thead><tr><th>विवरण</th><th>रकम</th></tr></thead>
+        <tbody>
+          <tr><td>तलबमान</td><td id="oBasic">रु. 0.00</td></tr>
+          <tr><td>ग्रेड रकम</td><td id="oGrade">रु. 0.00</td></tr>
+          <tr><td><b>कुल तलब</b></td><td id="gross"><b>रु. 0.00</b></td></tr>
+          <tr><td>कर्मचारी सञ्चयकोष कट्टी</td><td class="minus" id="pf">- रु. 0.00</td></tr>
+          <tr><td>निवृत्तिभरण कोष कट्टी</td><td class="minus" id="pensionDed">- रु. 0.00</td></tr>
+          <tr><td>बीमा कट्टी</td><td class="minus" id="insuranceDed">- रु. 0.00</td></tr>
+          <tr><td><b>अनिवार्य कट्टी पछिको तलब</b></td><td id="afterMandatory"><b>रु. 0.00</b></td></tr>
+          <tr><td>स्थानीय भत्ता</td><td class="plus" id="localOut">+ रु. 0.00</td></tr>
+          <tr><td>अन्य भत्ता</td><td class="plus" id="otherOut">+ रु. 0.00</td></tr>
+          <tr><td><b>भत्ता सहितको तलब</b></td><td id="withAllowance"><b>रु. 0.00</b></td></tr>
+          <tr><td>ना.ल. कोष कट्टी</td><td class="minus" id="citOut">- रु. 0.00</td></tr>
+          <tr><td><b>ना.ल. कोष कट्टी पछिको तलब</b></td><td id="afterCit"><b>रु. 0.00</b></td></tr>
+          <tr><td>कर कट्टी</td><td class="minus" id="taxOut">- रु. 0.00</td></tr>
+          <tr><td><b>खातामा आउने रकम</b></td><td id="netRow"><b>रु. 0.00</b></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card full">
+      <h2>३) खाताबाट नकट्ने तर कोष/बीमामा जम्मा हुने नियोक्ता अंश</h2>
+      <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="summary">
+          <div class="small">सञ्चयकोषमा जम्मा</div>
+          <div style="font-size:23px;font-weight:900" id="pfDeposit">रु. 0.00</div>
+          <div class="small">कर्मचारी + सरकारी/नियोक्ता अंश</div>
+        </div>
+        <div class="summary">
+          <div class="small">निवृत्तिभरण कोषमा जम्मा</div>
+          <div style="font-size:23px;font-weight:900" id="pensionDeposit">रु. 0.00</div>
+          <div class="small">लागू भएमा कर्मचारी + सरकारी/नियोक्ता अंश</div>
+        </div>
+        <div class="summary">
+          <div class="small">बीमामा जम्मा हुने अनुमान</div>
+          <div style="font-size:23px;font-weight:900" id="insuranceDeposit">रु. 0.00</div>
+          <div class="small">हस्तलिखित नोटअनुसार कर्मचारी कट्टी बराबर थप सरकारी अंश मानेर</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>महत्त्वपूर्ण:</b> यो क्याल्कुलेटर तपाईंले पठाएको हस्तलिखित विवरणको सूत्रअनुसार बनाइएको हो। तलबमान, ग्रेड, करयोग्य आय, कर छुट, भत्ता वा कोषसम्बन्धी आधिकारिक नियम फरक हुन सक्छन्। Payroll बनाउँदा सम्बन्धित कार्यालयको आधिकारिक दर/अनुसूची मिलाएर प्रयोग गर्नुहोस्।
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+  const ids = ["level","basic","grade","pension","localAllowance","otherAllowance","cit","pfRate","pensionRate","insurance","taxRate","employerPfRate","employerPensionRate"];
+  const $ = id => document.getElementById(id);
+  const n = id => Math.max(0, parseFloat($(id).value) || 0);
+  const money = v => "रु. " + new Intl.NumberFormat("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2}).format(Math.max(0,v));
+
+  function calc(){
+    const basic=n("basic"), grade=n("grade");
+    const gross=basic+grade;
+    const pf=gross*n("pfRate")/100;
+    const pensionDed=$("pension").value==="yes" ? gross*n("pensionRate")/100 : 0;
+    const insurance=Math.min(n("insurance"), Math.max(0,gross-pf-pensionDed));
+    const afterMandatory=Math.max(0,gross-pf-pensionDed-insurance);
+    const local=n("localAllowance"), other=n("otherAllowance");
+    const withAllowance=afterMandatory+local+other;
+    const cit=Math.min(n("cit"),withAllowance);
+    const afterCit=Math.max(0,withAllowance-cit);
+    const tax=afterCit*n("taxRate")/100;
+    const net=Math.max(0,afterCit-tax);
+
+    const employerPf=gross*n("employerPfRate")/100;
+    const employerPension=$("pension").value==="yes" ? gross*n("employerPensionRate")/100 : 0;
+
+    $("oBasic").textContent=money(basic);
+    $("oGrade").textContent=money(grade);
+    $("gross").innerHTML="<b>"+money(gross)+"</b>";
+    $("pf").textContent="- "+money(pf);
+    $("pensionDed").textContent="- "+money(pensionDed);
+    $("insuranceDed").textContent="- "+money(insurance);
+    $("afterMandatory").innerHTML="<b>"+money(afterMandatory)+"</b>";
+    $("localOut").textContent="+ "+money(local);
+    $("otherOut").textContent="+ "+money(other);
+    $("withAllowance").innerHTML="<b>"+money(withAllowance)+"</b>";
+    $("citOut").textContent="- "+money(cit);
+    $("afterCit").innerHTML="<b>"+money(afterCit)+"</b>";
+    $("taxOut").textContent="- "+money(tax);
+    $("net").textContent=money(net);
+    $("netRow").innerHTML="<b>"+money(net)+"</b>";
+    $("levelText").textContent="तह/स्तर: "+($("level").value.trim() || "—");
+
+    $("pfDeposit").textContent=money(pf+employerPf);
+    $("pensionDeposit").textContent=money(pensionDed+employerPension);
+    $("insuranceDeposit").textContent=money(insurance*2);
+
+    const state={};
+    ids.forEach(id=>state[id]=$(id).value);
+    localStorage.setItem("nepalSalaryCalc2083",JSON.stringify(state));
+  }
+
+  ids.forEach(id=>$(id).addEventListener("input",calc));
+  ids.forEach(id=>$(id).addEventListener("change",calc));
+
+  try{
+    const saved=JSON.parse(localStorage.getItem("nepalSalaryCalc2083")||"null");
+    if(saved) ids.forEach(id=>{if(saved[id]!==undefined) $(id).value=saved[id]});
+  }catch(e){}
+
+  $("resetBtn").addEventListener("click",()=>{
+    localStorage.removeItem("nepalSalaryCalc2083");
+    $("level").value="";
+    $("basic").value=0; $("grade").value=0; $("pension").value="no";
+    $("localAllowance").value=0; $("otherAllowance").value=0; $("cit").value=0;
+    $("pfRate").value=10; $("pensionRate").value=6; $("insurance").value=400; $("taxRate").value=1;
+    $("employerPfRate").value=10; $("employerPensionRate").value=6;
+    calc();
+  });
+
+  $("copyBtn").addEventListener("click",async()=>{
+    const text=[
+      "नेपाल सरकार कर्मचारी मासिक तलब हिसाब",
+      "तह/स्तर: "+($("level").value.trim()||"—"),
+      "कुल तलब: "+$("gross").innerText,
+      "अनिवार्य कट्टी पछिको तलब: "+$("afterMandatory").innerText,
+      "भत्ता सहित: "+$("withAllowance").innerText,
+      "ना.ल. कोषपछि: "+$("afterCit").innerText,
+      "कर कट्टी: "+$("taxOut").innerText,
+      "खातामा आउने: "+$("net").innerText
+    ].join("\n");
+    try{
+      await navigator.clipboard.writeText(text);
+      $("copyBtn").textContent="Copied ✓";
+      setTimeout(()=>$("copyBtn").textContent="सारांश Copy",1200);
+    }catch(e){
+      alert(text);
+    }
+  });
+
+  calc();
+})();
+</script>
+</body>
+</html>
